@@ -13,3 +13,15 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Claude Code / AI tooling
+.claude/
+.kotlin/
+
+# Sensitive / secret files
+*.jks
+*.keystore
+keystore.properties
+secrets.properties
+*.env
+.env*
