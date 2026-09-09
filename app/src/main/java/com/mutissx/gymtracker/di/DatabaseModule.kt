@@ -15,4 +15,5 @@ val databaseModule = module {
     }
     single { get<GymTrackerDatabase>().exerciseEntryDao() }
     single { get<GymTrackerDatabase>().weightEntryDao() }
+    single { get<GymTrackerDatabase>().hydrationEntryDao() }
 }

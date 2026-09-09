@@ -43,4 +43,24 @@
     <string name="chart_granularity_week">Week</string>
     <string name="chart_granularity_month">Month</string>
     <string name="progress_empty_state_message">Log your weight on a few different days to see your progress chart.</string>
+
+    <!-- Goal weight -->
+    <string name="goal_weight_title">Goal Weight</string>
+    <string name="goal_weight_label">Goal weight (kg)</string>
+    <string name="set_goal_weight_action">Set goal</string>
+    <string name="edit_goal_weight_content_description">Edit goal weight</string>
+    <string name="goal_weight_summary_format">Current: %1$s kg · Goal: %2$s kg</string>
+    <string name="log_weight_prompt">Log your weight to see progress toward your goal</string>
+    <string name="goal_reached_message">You reached your goal weight! Amazing work.</string>
+    <string-array name="motivational_messages">
+        <item>Every step counts — keep going!</item>
+        <item>Small steps every day add up to big results.</item>
+        <item>Consistency beats intensity. Stay with it.</item>
+        <item>Your future self will thank you for today\'s effort.</item>
+        <item>Progress, not perfection.</item>
+        <item>One day at a time — you\'ve got this!</item>
+    </string-array>
+
+    <!-- Hydration -->
+    <string name="hydration_label">2L water goal</string>
 </resources>

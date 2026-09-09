@@ -6,19 +6,24 @@ A simple, fast Android app for logging daily workouts and body weight, and watch
 
 | Today | History | Progress |
 | --- | --- | --- |
-| ![Today screen with logged exercises](screenshots/today_logged.png) | ![History screen with past days](screenshots/history.png) | ![Progress chart of body weight](screenshots/progress.png) |
+| ![Today screen with logged exercises and hydration](screenshots/today_logged.png) | ![History screen with per-day category pie charts and hydration](screenshots/history.png) | ![Progress chart of body weight with goal and motivational message](screenshots/progress.png) |
 
-| Add Exercise | Log Weight | Dark theme |
+| Add Exercise | Log Weight | Goal Weight |
 | --- | --- | --- |
-| ![Add Exercise dialog](screenshots/add_exercise_dialog.png) | ![Log Weight dialog](screenshots/log_weight_dialog.png) | ![Today screen in dark theme](screenshots/dark_theme.png) |
+| ![Add Exercise dialog](screenshots/add_exercise_dialog.png) | ![Log Weight dialog](screenshots/log_weight_dialog.png) | ![Goal Weight dialog](screenshots/goal_weight_dialog.png) |
+
+| Dark theme |
+| --- |
+| ![Today screen in dark theme](screenshots/dark_theme.png) |
 
 ## Features
 
-- **Today** — see today's date, your logged body weight, and every exercise you've logged so far, with the ability to delete an entry.
+- **Today** — see today's date, your logged body weight, your daily hydration checkmark, and every exercise you've logged so far, with the ability to delete an entry.
 - **Add Exercise** — log an exercise against one of eight categories (Cardio, Biceps, Triceps, Pectoral, Shoulder, Back, Legs, Abs), tracked in minutes or reps.
 - **Log Weight** — record your body weight for the day in kilograms.
-- **History** — a day-by-day timeline of every past workout and weight entry.
-- **Progress** — a line chart of your body weight over time, with Day / Week / Month granularity.
+- **Hydration** — a one-tap "2L water goal" checkmark for the day, shown with a water-drop icon (kept separate from the exercise breakdown) and carried into History.
+- **History** — a day-by-day timeline of every past workout, weight entry, and hydration checkmark, with a per-day donut chart breaking down that day's exercises by category.
+- **Progress** — a line chart of your body weight over time (Day / Week / Month granularity), plus an optional goal weight compared against your most recent logged weight with a rotating motivational message until you reach it.
 - **Theming** — cycle between System, Light, and Dark appearance from the top app bar.
 
 ## Tech stack
@@ -26,9 +31,10 @@ A simple, fast Android app for logging daily workouts and body weight, and watch
 - **Kotlin** with 100% **Jetpack Compose** (Material 3) — no XML layouts.
 - **Clean Architecture**: `data` / `domain` / `presentation` layers, with use cases mediating between ViewModels and repositories.
 - **Koin** for dependency injection.
-- **Room** for local persistence.
+- **Room** for local persistence (exercises, weight, hydration).
+- **SharedPreferences** for lightweight single-value settings (theme mode, goal weight).
 - **Navigation Compose** for the Today / History / Progress bottom-navigation flow.
-- **Vico** for the body-weight progress chart.
+- **Vico** for the body-weight progress chart; a small custom **Compose `Canvas`** donut chart for the per-day exercise category breakdown.
 - **Kotlin Coroutines & Flow** throughout the data layer.
 
 ## Project structure

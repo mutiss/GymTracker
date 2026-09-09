@@ -5,17 +5,20 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.mutissx.gymtracker.data.local.converter.LocalDateConverter
 import com.mutissx.gymtracker.data.local.dao.ExerciseEntryDao
+import com.mutissx.gymtracker.data.local.dao.HydrationEntryDao
 import com.mutissx.gymtracker.data.local.dao.WeightEntryDao
 import com.mutissx.gymtracker.data.local.entity.ExerciseEntryEntity
+import com.mutissx.gymtracker.data.local.entity.HydrationEntryEntity
 import com.mutissx.gymtracker.data.local.entity.WeightEntryEntity
 
 @Database(
-    entities = [ExerciseEntryEntity::class, WeightEntryEntity::class],
-    version = 2,
+    entities = [ExerciseEntryEntity::class, WeightEntryEntity::class, HydrationEntryEntity::class],
+    version = 3,
     exportSchema = true
 )
 @TypeConverters(LocalDateConverter::class)
 abstract class GymTrackerDatabase : RoomDatabase() {
     abstract fun exerciseEntryDao(): ExerciseEntryDao
     abstract fun weightEntryDao(): WeightEntryDao
+    abstract fun hydrationEntryDao(): HydrationEntryDao
 }
