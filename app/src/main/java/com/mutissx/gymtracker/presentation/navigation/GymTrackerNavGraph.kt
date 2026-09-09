@@ -13,11 +13,13 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.mutissx.gymtracker.R
 import com.mutissx.gymtracker.domain.model.ThemeMode
 import com.mutissx.gymtracker.presentation.common.GymTrackerBottomBar
 import com.mutissx.gymtracker.presentation.history.HistoryScreen
@@ -38,7 +40,7 @@ fun GymTrackerNavGraph(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(currentDestination.label) },
+                title = { Text(stringResource(currentDestination.labelRes)) },
                 actions = {
                     IconButton(onClick = onCycleThemeMode) {
                         Icon(
@@ -47,7 +49,10 @@ fun GymTrackerNavGraph(
                                 ThemeMode.LIGHT -> Icons.Default.LightMode
                                 ThemeMode.DARK -> Icons.Default.DarkMode
                             },
-                            contentDescription = "Toggle theme (current: ${themeMode.name.lowercase()})"
+                            contentDescription = stringResource(
+                                R.string.toggle_theme_content_description,
+                                themeMode.name.lowercase()
+                            )
                         )
                     }
                 }

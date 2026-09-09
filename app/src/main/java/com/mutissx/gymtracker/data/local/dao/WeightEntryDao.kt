@@ -15,6 +15,9 @@ interface WeightEntryDao {
     @Query("SELECT * FROM weight_entries WHERE date = :date LIMIT 1")
     fun observeForDate(date: LocalDate): Flow<WeightEntryEntity?>
 
+    @Query("SELECT * FROM weight_entries ORDER BY date DESC LIMIT 1")
+    fun observeLatest(): Flow<WeightEntryEntity?>
+
     @Query("SELECT * FROM weight_entries ORDER BY date ASC")
     fun observeAll(): Flow<List<WeightEntryEntity>>
 

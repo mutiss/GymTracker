@@ -17,23 +17,23 @@ import androidx.compose.ui.text.input.KeyboardType
 import com.mutissx.gymtracker.R
 
 @Composable
-fun LogWeightDialog(
-    initialWeightKg: Double?,
+fun SetGoalWeightDialog(
+    initialGoalWeightKg: Double?,
     onDismiss: () -> Unit,
     onConfirm: (weightKg: Double) -> Unit
 ) {
-    var weightText by remember { mutableStateOf(initialWeightKg?.toString().orEmpty()) }
+    var weightText by remember { mutableStateOf(initialGoalWeightKg?.toString().orEmpty()) }
     val parsedWeight = weightText.toDoubleOrNull()
     val canConfirm = parsedWeight != null && parsedWeight > 0
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(stringResource(R.string.log_weight)) },
+        title = { Text(stringResource(R.string.goal_weight_title)) },
         text = {
             OutlinedTextField(
                 value = weightText,
                 onValueChange = { weightText = it },
-                label = { Text(stringResource(R.string.weight_kg_label)) },
+                label = { Text(stringResource(R.string.goal_weight_label)) },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                 modifier = Modifier.fillMaxWidth()

@@ -1,9 +1,6 @@
 package com.mutissx.gymtracker.domain.model
 
-import java.time.LocalDate
-
-data class DaySummary(
-    val date: LocalDate,
+data class TodayLog(
     val exercises: List<ExerciseEntry>,
     val weight: WeightEntry?,
     val hydrated: Boolean

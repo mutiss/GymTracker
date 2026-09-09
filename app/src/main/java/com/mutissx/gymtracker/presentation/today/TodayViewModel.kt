@@ -8,6 +8,7 @@ import com.mutissx.gymtracker.domain.usecase.AddExerciseEntryUseCase
 import com.mutissx.gymtracker.domain.usecase.DeleteExerciseEntryUseCase
 import com.mutissx.gymtracker.domain.usecase.LogWeightUseCase
 import com.mutissx.gymtracker.domain.usecase.ObserveTodayLogUseCase
+import com.mutissx.gymtracker.domain.usecase.SetHydrationUseCase
 import java.time.LocalDate
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -19,13 +20,16 @@ class TodayViewModel(
     private val observeTodayLog: ObserveTodayLogUseCase,
     private val addExerciseEntry: AddExerciseEntryUseCase,
     private val logWeight: LogWeightUseCase,
-    private val deleteExerciseEntry: DeleteExerciseEntryUseCase
+    private val deleteExerciseEntry: DeleteExerciseEntryUseCase,
+    private val setHydration: SetHydrationUseCase
 ) : ViewModel() {
 
     private val today = LocalDate.now()
 
     val uiState: StateFlow<TodayUiState> = observeTodayLog(today)
-        .map { (exercises, weight) -> TodayUiState(exercises = exercises, weight = weight, isLoading = false) }
+        .map { log ->
+            TodayUiState(exercises = log.exercises, weight = log.weight, hydrated = log.hydrated, isLoading = false)
+        }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), TodayUiState())
 
     fun onAddExercise(category: ExerciseCategory, value: Double, unit: ValueUnit) {
@@ -38,5 +42,9 @@ class TodayViewModel(
 
     fun onDeleteExercise(id: Long) {
         viewModelScope.launch { deleteExerciseEntry(id) }
+    }
+
+    fun onToggleHydration() {
+        viewModelScope.launch { setHydration(today, !uiState.value.hydrated) }
     }
 }
