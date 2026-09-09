@@ -27,8 +27,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.mutissx.gymtracker.R
 import com.mutissx.gymtracker.domain.model.ExerciseEntry
 import com.mutissx.gymtracker.domain.model.ValueUnit
 import com.mutissx.gymtracker.presentation.common.AddEntryFab
@@ -67,7 +69,8 @@ fun TodayScreen(viewModel: TodayViewModel = koinViewModel()) {
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)) {
                 Text(
-                    text = uiState.weight?.let { "Weight: ${it.weightKg} kg" } ?: "No weight logged today",
+                    text = uiState.weight?.let { stringResource(R.string.weight_kg_format, it.weightKg) }
+                        ?: stringResource(R.string.no_weight_logged_today),
                     modifier = Modifier.padding(16.dp)
                 )
             }
@@ -79,7 +82,7 @@ fun TodayScreen(viewModel: TodayViewModel = koinViewModel()) {
                         .padding(32.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("No exercises yet", textAlign = TextAlign.Center)
+                    Text(stringResource(R.string.no_exercises_yet), textAlign = TextAlign.Center)
                 }
             } else {
                 LazyColumn(
@@ -128,22 +131,23 @@ private fun ExerciseRow(entry: ExerciseEntry, onDelete: () -> Unit) {
         ) {
             CategoryDot(entry.category.color())
             Text(
-                text = "${entry.category.displayName} — ${formatValue(entry)}",
+                text = stringResource(R.string.exercise_row_format, entry.category.displayName, formatValue(entry)),
                 modifier = Modifier
                     .weight(1f)
                     .padding(start = 12.dp)
             )
             IconButton(onClick = onDelete) {
-                Icon(Icons.Default.Delete, contentDescription = "Delete")
+                Icon(Icons.Default.Delete, contentDescription = stringResource(R.string.delete_content_description))
             }
         }
     }
 }
 
+@Composable
 private fun formatValue(entry: ExerciseEntry): String {
     val value = if (entry.value % 1.0 == 0.0) entry.value.toInt().toString() else entry.value.toString()
     return when (entry.unit) {
-        ValueUnit.MINUTES -> "$value min"
-        ValueUnit.REPS -> "$value reps"
+        ValueUnit.MINUTES -> stringResource(R.string.unit_minutes_format, value)
+        ValueUnit.REPS -> stringResource(R.string.unit_reps_format, value)
     }
 }

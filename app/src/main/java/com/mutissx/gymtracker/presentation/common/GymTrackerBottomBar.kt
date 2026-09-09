@@ -5,6 +5,7 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.mutissx.gymtracker.presentation.navigation.Destination
@@ -14,6 +15,7 @@ fun GymTrackerBottomBar(navController: NavHostController) {
     val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
     NavigationBar {
         Destination.bottomBarDestinations.forEach { destination ->
+            val label = stringResource(destination.labelRes)
             NavigationBarItem(
                 selected = currentRoute == destination.route,
                 onClick = {
@@ -25,8 +27,8 @@ fun GymTrackerBottomBar(navController: NavHostController) {
                         }
                     }
                 },
-                icon = { Icon(destination.icon, contentDescription = destination.label) },
-                label = { Text(destination.label) }
+                icon = { Icon(destination.icon, contentDescription = label) },
+                label = { Text(label) }
             )
         }
     }
