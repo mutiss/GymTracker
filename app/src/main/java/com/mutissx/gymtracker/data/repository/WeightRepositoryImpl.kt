@@ -26,6 +26,9 @@ class WeightRepositoryImpl(
     override fun observeWeightForDate(date: LocalDate): Flow<WeightEntry?> =
         dao.observeForDate(date).map { it?.toDomain() }
 
+    override fun observeLatestWeight(): Flow<WeightEntry?> =
+        dao.observeLatest().map { it?.toDomain() }
+
     override fun observeAllWeights(): Flow<List<WeightEntry>> =
         dao.observeAll().map { list -> list.map { it.toDomain() } }
 

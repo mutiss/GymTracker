@@ -13,9 +13,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.WaterDrop
 import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,6 +36,7 @@ import com.mutissx.gymtracker.domain.model.ExerciseEntry
 import com.mutissx.gymtracker.domain.model.ValueUnit
 import com.mutissx.gymtracker.presentation.common.CategoryDot
 import com.mutissx.gymtracker.presentation.common.CategoryPieChart
+import com.mutissx.gymtracker.presentation.common.HydrationColor
 import com.mutissx.gymtracker.presentation.common.PieSlice
 import com.mutissx.gymtracker.presentation.common.color
 import java.time.format.DateTimeFormatter
@@ -96,6 +101,23 @@ private fun DayCard(day: DaySummary) {
                                 entry.category.displayName,
                                 formatValue(entry)
                             ),
+                            modifier = Modifier.padding(start = 8.dp)
+                        )
+                    }
+                }
+                if (day.hydrated) {
+                    Row(
+                        modifier = Modifier.padding(top = 4.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            Icons.Filled.WaterDrop,
+                            contentDescription = null,
+                            tint = HydrationColor,
+                            modifier = Modifier.size(16.dp)
+                        )
+                        Text(
+                            text = stringResource(R.string.hydration_label),
                             modifier = Modifier.padding(start = 8.dp)
                         )
                     }

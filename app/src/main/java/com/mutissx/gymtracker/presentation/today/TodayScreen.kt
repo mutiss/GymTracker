@@ -1,5 +1,6 @@
 package com.mutissx.gymtracker.presentation.today
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,10 +13,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.WaterDrop
+import androidx.compose.material.icons.outlined.WaterDrop
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -36,6 +41,7 @@ import com.mutissx.gymtracker.domain.model.ValueUnit
 import com.mutissx.gymtracker.presentation.common.AddEntryFab
 import com.mutissx.gymtracker.presentation.common.AddExerciseDialog
 import com.mutissx.gymtracker.presentation.common.CategoryDot
+import com.mutissx.gymtracker.presentation.common.HydrationColor
 import com.mutissx.gymtracker.presentation.common.LogWeightDialog
 import com.mutissx.gymtracker.presentation.common.color
 import java.time.LocalDate
@@ -73,6 +79,35 @@ fun TodayScreen(viewModel: TodayViewModel = koinViewModel()) {
                         ?: stringResource(R.string.no_weight_logged_today),
                     modifier = Modifier.padding(16.dp)
                 )
+            }
+
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
+                    .clickable { viewModel.onToggleHydration() }
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        imageVector = if (uiState.hydrated) Icons.Filled.WaterDrop else Icons.Outlined.WaterDrop,
+                        contentDescription = null,
+                        tint = if (uiState.hydrated) HydrationColor else LocalContentColor.current
+                    )
+                    Text(
+                        text = stringResource(R.string.hydration_label),
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(start = 12.dp)
+                    )
+                    if (uiState.hydrated) {
+                        Icon(Icons.Default.Check, contentDescription = null, tint = HydrationColor)
+                    }
+                }
             }
 
             if (uiState.exercises.isEmpty()) {
