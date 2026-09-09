@@ -21,7 +21,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.mutissx.gymtracker.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -32,14 +34,14 @@ fun AddEntryFab(
     var showChooser by remember { mutableStateOf(false) }
 
     FloatingActionButton(onClick = { showChooser = true }) {
-        Icon(Icons.Default.Add, contentDescription = "Add entry")
+        Icon(Icons.Default.Add, contentDescription = stringResource(R.string.add_entry_content_description))
     }
 
     if (showChooser) {
         ModalBottomSheet(onDismissRequest = { showChooser = false }) {
             ChooserRow(
                 icon = Icons.Default.FitnessCenter,
-                label = "Add Exercise",
+                label = stringResource(R.string.add_exercise),
                 onClick = {
                     showChooser = false
                     onAddExercise()
@@ -47,7 +49,7 @@ fun AddEntryFab(
             )
             ChooserRow(
                 icon = Icons.Default.MonitorWeight,
-                label = "Log Weight",
+                label = stringResource(R.string.log_weight),
                 onClick = {
                     showChooser = false
                     onLogWeight()

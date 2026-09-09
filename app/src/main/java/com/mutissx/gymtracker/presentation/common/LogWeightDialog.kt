@@ -12,7 +12,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
+import com.mutissx.gymtracker.R
 
 @Composable
 fun LogWeightDialog(
@@ -26,12 +28,12 @@ fun LogWeightDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Log Weight") },
+        title = { Text(stringResource(R.string.log_weight)) },
         text = {
             OutlinedTextField(
                 value = weightText,
                 onValueChange = { weightText = it },
-                label = { Text("Weight (kg)") },
+                label = { Text(stringResource(R.string.weight_kg_label)) },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                 modifier = Modifier.fillMaxWidth()
@@ -41,10 +43,10 @@ fun LogWeightDialog(
             TextButton(
                 enabled = canConfirm,
                 onClick = { onConfirm(parsedWeight!!) }
-            ) { Text("Save") }
+            ) { Text(stringResource(R.string.action_save)) }
         },
         dismissButton = {
-            TextButton(onClick = onDismiss) { Text("Cancel") }
+            TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) }
         }
     )
 }

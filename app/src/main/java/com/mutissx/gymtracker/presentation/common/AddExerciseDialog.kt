@@ -20,8 +20,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.mutissx.gymtracker.R
 import com.mutissx.gymtracker.domain.model.ExerciseCategory
 import com.mutissx.gymtracker.domain.model.ValueUnit
 
@@ -39,10 +41,10 @@ fun AddExerciseDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Add Exercise") },
+        title = { Text(stringResource(R.string.add_exercise)) },
         text = {
             Column {
-                Text("Exercise")
+                Text(stringResource(R.string.exercise_label))
                 FlowRow(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -61,7 +63,7 @@ fun AddExerciseDialog(
                 OutlinedTextField(
                     value = valueText,
                     onValueChange = { valueText = it },
-                    label = { Text("Value") },
+                    label = { Text(stringResource(R.string.value_label)) },
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                     modifier = Modifier
@@ -75,7 +77,11 @@ fun AddExerciseDialog(
                             onClick = { unit = entry },
                             shape = SegmentedButtonDefaults.itemShape(index, ValueUnit.entries.size)
                         ) {
-                            Text(if (entry == ValueUnit.MINUTES) "Minutes" else "Reps")
+                            Text(
+                                stringResource(
+                                    if (entry == ValueUnit.MINUTES) R.string.unit_minutes_label else R.string.unit_reps_label
+                                )
+                            )
                         }
                     }
                 }
@@ -85,10 +91,10 @@ fun AddExerciseDialog(
             TextButton(
                 enabled = canConfirm,
                 onClick = { onConfirm(selectedCategory!!, parsedValue!!, unit) }
-            ) { Text("Add") }
+            ) { Text(stringResource(R.string.action_add)) }
         },
         dismissButton = {
-            TextButton(onClick = onDismiss) { Text("Cancel") }
+            TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) }
         }
     )
 }

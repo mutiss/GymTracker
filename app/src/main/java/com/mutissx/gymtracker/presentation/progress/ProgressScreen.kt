@@ -18,8 +18,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.mutissx.gymtracker.R
 import com.mutissx.gymtracker.domain.model.ChartGranularity
 import com.mutissx.gymtracker.domain.model.ChartPoint
 import com.patrykandpatrick.vico.compose.cartesian.CartesianChartHost
@@ -87,11 +89,13 @@ fun ProgressScreen(viewModel: ProgressViewModel = koinViewModel()) {
                         shape = SegmentedButtonDefaults.itemShape(index, ChartGranularity.entries.size)
                     ) {
                         Text(
-                            when (granularity) {
-                                ChartGranularity.DAY -> "Day"
-                                ChartGranularity.WEEK -> "Week"
-                                ChartGranularity.MONTH -> "Month"
-                            }
+                            stringResource(
+                                when (granularity) {
+                                    ChartGranularity.DAY -> R.string.chart_granularity_day
+                                    ChartGranularity.WEEK -> R.string.chart_granularity_week
+                                    ChartGranularity.MONTH -> R.string.chart_granularity_month
+                                }
+                            )
                         )
                     }
                 }
@@ -106,7 +110,7 @@ fun ProgressScreen(viewModel: ProgressViewModel = koinViewModel()) {
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        "Log your weight on a few different days to see your progress chart.",
+                        stringResource(R.string.progress_empty_state_message),
                         textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.bodyMedium
                     )
